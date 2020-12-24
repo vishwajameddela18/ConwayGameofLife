@@ -2,35 +2,51 @@ package cglgame;
 
 public class Cell {
 
-	private int Row;
-	private int Col;
+	private int row;
+	private int col;
 	
-	private boolean Status;
+//	private boolean status;
 	
-	public class(int Row, int Col, boolean Status) {
-		this.Row = row;
-		this.Col = col;
-		this.Status = status;
-	}
+//	public Cell(int row, int col) {
+//		this.row = row;
+//		this.col = col;
+////		this.setStatus(status);
+//	}
+//	
+	
 
-//	public int getRow() {
-//		return Row;
+	public int countLiveCells(boolean[][] current,int row,int col){
+        int n = current.length;
+        int lives=0;
+        for(int i=row-1;i<=row+1;i++){
+            for(int j=col-1;j<=col+1;j++){
+                if(i!=row || j!=col){
+                    if(i>=0 && i<n && j>=0 && j<n && current[i][j]){
+                        lives+=1;
+                    }
+                }
+            }
+        }
+        return lives;
+    }
+
+
+
+//	public boolean isStatus() {
+//		return status;
 //	}
 //
 //
-//	public int getCol() {
-//		return Col;
+//
+//	public void setStatus(boolean status) {
+//		this.status = status;
 //	}
-
+	
+	
+	
 	
 
-	public boolean isStatus() {
-		return Status;
-	}
-
-	public void setStatus(boolean status) {
-		Status = status;
-	}
+	
 	
 	
 
