@@ -1,27 +1,27 @@
-package cglgame;
 
+package cglgame;
 public class Board {
 	
 	
 	private int livecells[][];
 	private int size;
-	
+	private boolean[][] board = new boolean[size][size];
 	public Board() {
 	
 	}
 	
-	public boolean[][] createboard(int size, int livecells[][]) {
-		boolean[][] board = new boolean[size][size];
+	public  boolean[][] createboard(int size, int livecells[][]) {
+		
 		for(int i=0;i<livecells.length;i++){
             int row=livecells[i][0];
             int col=livecells[i][1];
             board[row][col]=true;
         }
-		printboard(board);
+//		printboard();
 		return board;
 	}
 	
-	public void printboard(boolean[][] board) {
+	public String printboard() {
 		StringBuffer sb = new StringBuffer();
         for(int i=0;i<board.length;i++)
         {
@@ -37,8 +37,16 @@ public class Board {
             sb.append("\n");
         }
         String str = sb.toString();
-        System.out.print(str);
+        return str;
 		
+	}
+
+	public int[][] getLivecells() {
+		return livecells;
+	}
+
+	public void setLivecells(int livecells[][]) {
+		this.livecells = livecells;
 	}
 
 }
