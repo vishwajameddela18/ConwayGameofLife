@@ -1,4 +1,4 @@
-package cglgame;
+package conwayJavaFX;
 
 public class Cell {
 

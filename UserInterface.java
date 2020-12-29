@@ -1,9 +1,10 @@
-package cglgame;
+package conwayJavaFX;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+//import cglgame.Board;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -77,10 +78,10 @@ public class UserInterface {
 	// These attributes define the Board used by the simulation and the graphical representation
 	// There are two Boards. The previous Board and the new Board.  Once the new Board has been
 	// displayed, it becomes the previous Board for the generation of the next new Board.
-	//private Board oddGameBoard = new Board();		// The Board for odd frames of the animation
+	private Board oddGameBoard = new Board();		// The Board for odd frames of the animation
 	private Pane oddCanvas = new Pane();			// Pane that holds its graphical representation
 	
-	//private Board evenGameBoard =  new Board();	// The Board for even frames of the animation
+	private Board evenGameBoard =  new Board();	// The Board for even frames of the animation
 	private Pane evenCanvas = new Pane();			// Pane that holds its graphical representation
 
 	private boolean toggle = true;					// A two-state attribute that specifies which
@@ -264,11 +265,56 @@ public class UserInterface {
 	 * This method is called when the Load button is pressed. It tries to load the data onto the
 	 * board for the simulation.
 	 */
+	int[][] livecells = new int[100][2];
+	boolean[][] cell;
 	private void loadImageData() {
 		try {
-			// Your code goes here......
+			File file = new File(str_FileName);
+			scanner_Input = new Scanner(file);
+//			int m = scanner_Input.nextInt();
+	        
+	        int i = 0;
+			while (scanner_Input.hasNextInt()) {
+	            livecells[i][0] = scanner_Input.nextInt();
+	            livecells[i++][1] = scanner_Input.nextInt();
+//	            System.out.println(livecells[0][0]);
+	        }
 			
+			Board B1 = new Board();
+			boolean[][] c = B1.createBoard(100,100,livecells);
+
+//		        boolean[][] board = new boolean[boardSizeWidth][boardSizeHeight];
+//		        for(int j=0;j<livecells.length;j++){
+//		            int row=livecells[j][0];
+//		            int col=livecells[j][1];
+//		            board[row][col]=true;
+//		        }
+//		        
+		        
+//		         System.out.println(c[0][0]);
+			cell = c;
+//			System.out.print(cell.length);
+			for(int k=0;k<c.length;k++)
+	        {
+	            for(int l=0;l<c[k].length;l++)
+	            {
+	                //System.out.print(board[i][j]+" ");
+	                if(c[k][l]) {
+	                	
+	                Rectangle rect=new Rectangle(6+k*cellSize,6+l*cellSize,cellSize,cellSize); 
+			        rect.setFill(Color.RED);
+			        oddCanvas.getChildren().add(rect);
+			         
+//	                    sb.append("*");
+	                }
+	                
+			
+	            }
+	        }
+			
+			window.getChildren().add(oddCanvas);
 		}
+
 		catch (Exception e)  {
 			// Since we have already done this check, this exception should never happen
 		}
@@ -295,19 +341,88 @@ public class UserInterface {
 	 * This method display the current state of the odd board and terminates the application
 	 */
 	private void stopConway() {
+		
 		// Your code goes here to display the current state of the board.
 		System.out.println("Game is stopping....");
 		System.exit(0);
+//		toggle = false;
 	}
 
 	/**********
 	 * This method is run each time the timeline triggers it
 	 */
+	
 	public void runSimulation(){
+		boolean[][] generation = cell;
+		if(toggle) {
+			oddCanvas.getChildren().clear();
+			window.getChildren().remove(oddCanvas);
+//			Board B1 = new Board();
+//			boolean[][] c = B1.createBoard(boardSizeWidth,boardSizeHeight,livecells);
+			Generation G = new Generation();
+//			System.out.print(cell.length);
+			boolean[][] gen = G.generateNextGeneration(100,100,cell);
+			for(int k=0;k<gen.length ;k++)
+	        {
+	            for(int l=0;l<gen[k].length;l++)
+	            {
+	                //System.out.print(board[i][j]+" ");
+	                if(gen[k][l]) {
+	                	
+	                Rectangle rect=new Rectangle(6+k*cellSize,6+l*cellSize,cellSize,cellSize); 
+			        rect.setFill(Color.RED);
+			        evenCanvas.getChildren().add(rect);
+//			        evenCanvas.getChildren().clear();
+//			        window.getChildren().remove(evenCanvas);
+			         
+//	                    sb.append("*");
+	                }
+	                
+			
+	            }
+	        }
+//			window.getChildren().clear();
+			window.getChildren().add(evenCanvas);
+			toggle = false;
+			generation = gen;
+		}
+		else{
+//			System.out.print(generation.length);
+			evenCanvas.getChildren().clear();
+			window.getChildren().remove(evenCanvas);
+//			Board B1 = new Board();
+//			boolean[][] c = B1.createBoard(boardSizeWidth,boardSizeHeight,livecells);
+			Generation G = new Generation();
+			boolean[][] gen = G.generateNextGeneration(100,100,generation);
+			for(int k=0;k<gen.length ;k++)
+	        {
+	            for(int l=0;l<gen[k].length;l++)
+	            {
+	                //System.out.print(board[i][j]+" ");
+	                if(gen[k][l]) {
+	                	
+	                Rectangle rect=new Rectangle(6+k*cellSize,6+l*cellSize,cellSize,cellSize); 
+			        rect.setFill(Color.RED);
+			        oddCanvas.getChildren().add(rect);
+			         
+//	                    sb.append("*");
+	                }
+	                
+			
+	            }
+	        }
+			
+			window.getChildren().add(oddCanvas);
+			toggle = true;
+			cell = gen;
+			
+//			System.out.print(cell.length);
+		}
+		}
 		// Use the toggle to flip back and forth between the current generation and next generation boards.
 		
 		// Your code goes here...
-	}
+	
 
 	/**********
 	 * This method reads in the contents of the data file and discards it as quickly as it reads it

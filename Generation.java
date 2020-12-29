@@ -1,10 +1,11 @@
-package cglgame;
+package conwayJavaFX;
+
 
 import java.util.Scanner;
 
 public class Generation {
 	
-	private  int no_of_generations;
+//	private  int no_of_generations;
 	
 //	public Generation(int row, int col) {
 //		// TODO Auto-generated constructor stub
@@ -13,12 +14,13 @@ public class Generation {
 	
 //	static Cell cell = new Cell();
 	Board b = new Board();
-	public String generateNextGeneration(boolean current[][], int no_of_generations) { //create board output = currentarray
+	public boolean[][] generateNextGeneration(int x, int y,boolean current[][]) { //create board output = currentarray
         int n = current.length;
-        boolean[][] newBoard = new boolean[n][n];
-        while(no_of_generations > 0) {
+//        int n = current[0].length;
+        boolean[][] newBoard = new boolean[x][y];
+//        while(no_of_generations > 0) {
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
+            for(int j=0;j<current[0].length;j++){
                 int ilives = b.countLiveCells(current,i,j);
 
                 if(current[i][j]){
@@ -39,11 +41,12 @@ public class Generation {
                 
             }
         }
-        no_of_generations = no_of_generations-1;
-        }
-        System.out.println(no_of_generations);
-        System.out.println(b.printBoard(newBoard));
-        return b.printBoard(newBoard);
+        return newBoard;
+//        no_of_generations = no_of_generations-1;
+//        }
+//        System.out.println(no_of_generations);
+//        System.out.println(b.printBoard(newBoard));
+//        return b.printBoard(newBoard);
     }
 	
 //	public static void main(String[] args) {
