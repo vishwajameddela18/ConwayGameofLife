@@ -3,7 +3,18 @@ package conwayJavaFX;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/*******
+ * <p> Title: UserInterface Class. </p>
+ * 
+ * <p> Description: A JavaFX demonstration application: This controller class describes the user
+ * interface for the Conway's Game of Life </p>
+ * 
+ * <p> Copyright: Lynn Robert Carter © 2018-05-06 </p>
+ * 
+ * @author Vishwaja Meddela
+ * @version 3.1	2020-12-29 An implementation of creating the board for Conway Game of Life
+ * 
+ */
 public class Board {
 	
 	

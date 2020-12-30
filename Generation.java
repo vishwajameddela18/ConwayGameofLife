@@ -3,6 +3,17 @@ package conwayJavaFX;
 
 import java.util.Scanner;
 
+/*******
+ * <p> Title: Generation Class. </p>
+ * 
+ * <p> Description: This class describes the generation of Next Generation Boards for the Conway's Game of Life </p>
+ * 
+ * <p> Copyright: Vishwaja Meddela © 2020-12-29 </p>
+ * 
+ * @author Vishwaja Meddela
+ * @version 3.1	2020-12-29 An implementation of creating the Next Generation Boards for Conway Game of Life
+ * 
+ */
 public class Generation {
 	
 //	private  int no_of_generations;
